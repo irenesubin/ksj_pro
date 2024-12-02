@@ -2,7 +2,7 @@
 
 # 결과 파일 경로 설정
 current_time=$(date +"%Y%m%d_%H%M%S")
-resultfile="/tmp/security_check_$current_time.txt"
+resultfile="/tmp/security_check_res.txt"
 
 # 파일 생성 및 권한 설정
 touch "$resultfile"
@@ -169,3 +169,17 @@ U_01() {
 	echo "※ U-01 결과 : 양호(Good)" >> $resultfile 2>&1
 	return 0
 }
+echo ""  > $resultfile 2>&1
+echo " 점검일 : `date +'%F %H:%M:%S'`"  >> $resultfile 2>&1
+echo "##############################################################################" >> $resultfile 2>&1
+echo "#                                                                            #" >> $resultfile 2>&1
+echo "#            Rocky vulnerability assessment results Version 1.1.3            #" >> $resultfile 2>&1
+echo "#                         Copyright (c) 2023 Kim Jei                         #" >> $resultfile 2>&1
+echo "#                                                                            #" >> $resultfile 2>&1
+echo "##############################################################################" >> $resultfile 2>&1
+
+U_01
+
+echo "작업완료"  >> $resultfile 2>&1
+echo "진단이 완료되었습니다. 결과 파일: $resultfile"
+echo ""  >> $resultfile 2>&1
