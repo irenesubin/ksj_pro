@@ -1,0 +1,6 @@
+---
+- name: 스크립트 실행하기
+  hosts: all
+  tasks:
+    - name: 스크립트 보내고 실행하기
+      ansible.builtin.script: /home/user2/hello.sh
