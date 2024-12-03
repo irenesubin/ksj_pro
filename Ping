@@ -1,0 +1,5 @@
+---
+- hosts: rocky_server
+  tasks:
+    - name: Ping test
+      ping:
