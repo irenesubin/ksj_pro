@@ -3,14 +3,14 @@
   hosts: all
   become: yes
   vars:
-    script_path: /tmp/security_check.sh
-    result_path: "/tmp/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.txt"
-    json_path: "/tmp/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.json"
+    script_path: /tmp/semaphore/repository_2_1/check.sh
+    result_path: "/tmp/semaphore/repository_2_1/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.txt"
+    json_path: "/tmp/semaphore/repository_2_1/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.json"
 
   tasks:
     - name: Copy security check script to remote host
       copy:
-        src: security_check.sh
+        src: /tmp/semaphore/repository_2_1/check.sh
         dest: "{{ script_path }}"
         mode: '0755'
 
@@ -50,13 +50,13 @@
     - name: Fetch result file
       fetch:
         src: "{{ result_path }}"
-        dest: "./security_check_results/"
+        dest: "/tmp/semaphore/repository_2_1/security_check_results/"
         flat: yes
 
     - name: Fetch JSON file
       fetch:
         src: "{{ json_path }}"
-        dest: "./security_check_results/"
+        dest: "/tmp/semaphore/repository_2_1/security_check_results/"
         flat: yes
 
     - name: Remove script and result files from remote host
