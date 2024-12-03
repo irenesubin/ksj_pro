@@ -1,69 +1,25 @@
 ---
-- name: Run Security Check Script
-  hosts: all
+- name: Run security check script and collect results
+  hosts: rocky_server
   become: yes
-  vars:
-    script_path: /tmp/semaphore/repository_2_1/check.sh
-    result_path: "/tmp/semaphore/repository_2_1/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.txt"
-    json_path: "/tmp/semaphore/repository_2_1/security_check_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.json"
-
   tasks:
-    - name: Copy security check script to remote host
+    - name: Copy check script to remote host
       copy:
         src: /tmp/semaphore/repository_2_1/check.sh
-        dest: "{{ script_path }}"
+        dest: /tmp/check.sh
         mode: '0755'
 
-    - name: Execute security check script
-      shell: "{{ script_path }}"
-      register: script_output
+    - name: Execute check script
+      shell: /tmp/check.sh
+      register: check_result
 
-    - name: Display script output
-      debug:
-        var: script_output.stdout_lines
-
-    - name: Convert result to JSON
-      shell: |
-        awk '
-        BEGIN { print "{" }
-        /^▶/ { 
-          if (title) { print "  ]," }
-          title = $0
-          gsub(/^▶|◀$/, "", title)
-          gsub(/"/, "\\\"", title)
-          print "  \"" title "\": ["
-          first = 1
-        }
-        /^※/ {
-          if (!first) { print "    ," }
-          first = 0
-          result = $0
-          gsub(/^※|결과 :/, "", result)
-          gsub(/"/, "\\\"", result)
-          print "    {\"result\": \"" result "\"}"
-        }
-        END { print "  ]" ; print "}" }
-        ' {{ result_path }} > {{ json_path }}
-      args:
-        executable: /bin/bash
-
-    - name: Fetch result file
+    - name: Fetch results from remote host
       fetch:
-        src: "{{ result_path }}"
-        dest: "/tmp/semaphore/repository_2_1/security_check_results/"
+        src: "{{ check_result.stdout_lines[-1] }}"
+        dest: "/home/ubuntu/{{ inventory_hostname }}_security_check.json"
         flat: yes
 
-    - name: Fetch JSON file
-      fetch:
-        src: "{{ json_path }}"
-        dest: "/tmp/semaphore/repository_2_1/security_check_results/"
-        flat: yes
-
-    - name: Remove script and result files from remote host
+    - name: Remove temporary files
       file:
-        path: "{{ item }}"
+        path: /tmp/check.sh
         state: absent
-      loop:
-        - "{{ script_path }}"
-        - "{{ result_path }}"
-        - "{{ json_path }}"
