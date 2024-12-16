@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>취약점 진단 완료</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    .btn {
+        padding: 30px 40px; /* 버튼 크기 확대 */
+        font-size: 20px; /* 글씨 크기 확대 */
+        border: none;
+        border-radius: 8px; /* 버튼 모서리 둥글게 */
+        cursor: pointer;
+        text-align: left; /* 텍스트 왼쪽 정렬 */
+        white-space: pre-wrap; /* 줄바꿈 허용 */
+        word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+        width: 300px; /* 버튼의 고정 너비 설정 */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 버튼 그림자 추가 */
+        background-color: #449be8; /* 버튼 배경색 */
+        color: white; /* 텍스트 색상 */
+        transition: transform 0.2s ease; /* 클릭 시 애니메이션 효과 */
+    }
+
+    .btn:hover {
+        background-color: #95bce8; /* 버튼 호버 배경색 */
+        transform: scale(1.02); /* 호버 시 크기 살짝 확대 */
+    }
+</style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">취약점 진단 완료!</div>
+        <div class="button-container" id="buttons">
+            <!-- Buttons will be dynamically created here -->
+        </div>
+    </div>
+
+    <script>
+        // URL 쿼리 스트링을 파싱하는 함수
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search); // 현재 URL의 쿼리스트링 가져오기
+            const os = params.getAll('os[]'); // os[] 파라미터 가져오기
+            const ip = params.getAll('ip[]'); // ip[] 파라미터 가져오기
+    
+            // 디버그: 콘솔에 출력
+            console.log('OS:', os);
+            console.log('IP:', ip);
+    
+            return { os, ip };
+        }
+    
+        // 데이터 가져오기
+        const { os, ip } = getQueryParams();
+    
+        // 데이터를 HTML에 동적으로 추가
+        window.onload = function () {
+            const container = document.querySelector('.button-container');
+    
+            // 디버그: 데이터 확인
+            if (os.length === 0 || ip.length === 0) {
+                console.error('데이터가 부족합니다. URL을 확인하세요.');
+                container.innerHTML = '<div>데이터가 없습니다. URL을 확인하세요.</div>';
+                return;
+            }
+    
+            container.innerHTML = ''; // 기존 버튼 제거
+    
+            for (let i = 0; i < os.length; i++) {
+                const button = document.createElement('button');
+                button.className = 'btn btn-primary';
+                button.textContent = `OS: ${os[i]}\nIP: ${ip[i]}`; // 줄바꿈 추가
+                button.onclick = () => {
+                    // 버튼 클릭 시 result.html로 이동, 데이터 전달
+                    const resultUrl = `result?os=${encodeURIComponent(os[i])}&ip=${encodeURIComponent(ip[i])}`;
+                    window.location.href = resultUrl;
+                };
+                container.appendChild(button);
+            }
+        };
+    </script>
+    
+    
+    
+</body>
+</html>

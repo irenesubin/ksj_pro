@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>취약점 진단 솔루션 보고서</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #0088cc;
+            margin: 0;
+            padding: 20px;
+        }
+        .report-container {
+            background-color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #1a365d;
+            padding: 25px;
+            border-radius: 8px;
+            margin: -30px -30px 30px -30px;
+            position: relative;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        .date-info {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+        .content-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            color: #1a365d;
+            border-bottom: 2px solid #1a365d;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #1a365d;
+        }
+        .value {
+            color: #333;
+        }
+        .result-warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .status-message {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="header">
+            <h1>취약점 진단 솔루션 보고서</h1>
+            <div class="date-info">
+                점검일시: {{ data.check_info.check_date }}
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">점검 정보</h2>
+            <div class="info-grid">
+                <div class="label">항목 코드</div>
+                <div class="value">{{ data.check_info.item_code }}</div>
+                
+                <div class="label">카테고리</div>
+                <div class="value">{{ data.check_info.category }}</div>
+                
+                <div class="label">점검 항목</div>
+                <div class="value">{{ data.check_info.check_item }}</div>
+                
+                <div class="label">심각도</div>
+                <div class="value">{{ data.check_info.severity }}</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">점검 결과</h2>
+            <div class="result-warning">
+                <strong>결과: </strong>{{ data.check_result.result }}
+            </div>
+            <div class="status-message">
+                <strong>상태: </strong>{{ data.check_result.status }}
+            </div>
+            <div class="info-grid" style="margin-top: 20px;">
+                <div class="label">설정 파일</div>
+                <div class="value">{{ data.check_result.details.config_file }}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

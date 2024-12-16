@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Information</title>
+    <style>
+        /* 기존 CSS 그대로 유지 */
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-color: #F8FAFC;
+            color: #2C3E50;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #6C757D;
+            margin-bottom: 2rem;
+        }
+        .server-form {
+            background-color: #6d767c;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            background-color: #CED4DA;
+            border: 1px solid #495057;
+            border-radius: 6px;
+            color: #495057;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+        .button-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .control-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .add-button {
+            background-color: #34a872;
+            color: white;
+        }
+        .delete-button {
+            background-color: #db4756;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #449be8;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6C757D;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Please Check Information</h1>
+        <p class="subtitle">서버 정보를 입력해주세요</p>
+        
+        <form id="serverForm" action="script" method="GET">
+            <div id="server-container">
+                <div class="server-form">
+                    <div class="form-group">
+                        <select name="os[]" required>
+                            <option value="" disabled selected>Select Server Type</option>
+                            <option value="rocky">Rocky</option>
+                            <option value="ubuntu">Ubuntu</option>
+                            <option value="centos">CentOS</option>
+                            <option value="fedora">Fedora</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="ip[]" placeholder="IP ADDRESS" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="user" placeholder="User Name" required>
+                    </div>
+                    <button type="button" class="delete-button" onclick="deleteForm(this)">-</button>
+                </div>
+            </div>
+        
+            <div class="button-wrapper">
+                <button type="button" class="add-button" onclick="addForm()">+</button>
+            </div>
+        
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">진단 시작</button>
+                <button type="reset" class="btn btn-secondary">CLEAR FORM</button>
+            </div>
+        </form>        
+    </div>
+
+    <script>
+        // 폼 추가 기능
+        function addForm() {
+            const container = document.getElementById('server-container');
+            const newForm = container.children[0].cloneNode(true);
+            // 입력값 초기화
+            newForm.querySelectorAll('input, select').forEach(input => {
+                input.value = '';
+            });
+            container.appendChild(newForm);
+        }
+
+        // 폼 삭제 기능
+        function deleteForm(button) {
+            const forms = document.getElementsByClassName('server-form');
+            if (forms.length > 1) {
+                button.parentElement.remove();
+            }
+        }
+    </script>
+</body>
+</html>

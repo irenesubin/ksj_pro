@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>취약점 진단 솔루션 보고서</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #0088cc;
+            margin: 0;
+            padding: 20px;
+        }
+        .report-container {
+            background-color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #1a365d;
+            padding: 25px;
+            border-radius: 8px;
+            margin: -30px -30px 30px -30px;
+            position: relative;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        .summary-section {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .summary-item {
+            text-align: center;
+            padding: 15px 30px;
+            border-radius: 8px;
+            min-width: 150px;
+        }
+        .vulnerable {
+            background-color: #ffebee;
+            border-left: 4px solid #dc3545;
+        }
+        .good {
+            background-color: #e8f5e9;
+            border-left: 4px solid #198754;
+        }
+        .na {
+            background-color: #e3f2fd;
+            border-left: 4px solid #0d6efd;
+        }
+        .content-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .filter-button {
+            padding: 8px 15px;
+            background-color: #1a365d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .filter-button:hover {
+            background-color: #2a466d;
+        }
+        .result-item {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 20px;
+            background-color: white;
+        }
+        .result-vulnerable {
+            border-left: 5px solid #dc3545;
+        }
+        .result-good {
+            border-left: 5px solid #198754;
+        }
+        .result-na {
+            border-left: 5px solid #0d6efd;
+        }
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .item-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #1a365d;
+        }
+        .item-importance {
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="header">
+            <h1>취약점 진단 솔루션 보고서</h1>
+        </div>
+
+        <div class="summary-section">
+            <div class="summary-item vulnerable">
+                <h3>취약</h3>
+                <p>{{ vulnerable_count }}건</p>
+            </div>
+            <div class="summary-item good">
+                <h3>양호</h3>
+                <p>{{ good_count }}건</p>
+            </div>
+            <div class="summary-item na">
+                <h3>N/A</h3>
+                <p>{{ na_count }}건</p>
+            </div>
+        </div>
+
+        <div class="filter-options">
+            <button class="filter-button" onclick="filterResults('all')">전체 보기</button>
+            <button class="filter-button" onclick="filterResults('vulnerable')">취약 항목</button>
+            <button class="filter-button" onclick="filterResults('good')">양호 항목</button>
+            <button class="filter-button" onclick="filterResults('na')">N/A 항목</button>
+            <button class="filter-button" onclick="filterByImportance('상')">중요도: 상</button>
+            <button class="filter-button" onclick="filterByImportance('중')">중요도: 중</button>
+            <button class="filter-button" onclick="filterByImportance('하')">중요도: 하</button>
+        </div>
+
+        <div class="content-section">
+            {% for item in items %}
+            <div class="result-item {% if '취약' in item.result %}result-vulnerable{% elif '양호' in item.result %}result-good{% else %}result-na{% endif %}"
+                 data-result="{{ '취약' if '취약' in item.result else '양호' if '양호' in item.result else 'na' }}"
+                 data-importance="{{ item.importance }}">
+                <div class="item-header">
+                    <span class="item-title">{{ item.id }} - {{ item.check_item }}</span>
+                    <span class="item-importance">중요도: {{ item.importance }}</span>
+                </div>
+                <p><strong>카테고리:</strong> {{ item.category }}</p>
+                <p><strong>점검 기준:</strong> {{ item.criteria }}</p>
+                <p><strong>결과:</strong> {{ item.result }}</p>
+                {% if item.current_status and item.current_status != 'N/A' %}
+                <p><strong>현재 상태:</strong> {{ item.current_status }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function filterResults(type) {
+            const items = document.querySelectorAll('.result-item');
+            items.forEach(item => {
+                if (type === 'all') {
+                    item.style.display = 'block';
+                } else {
+                    const itemType = item.getAttribute('data-result');
+                    item.style.display = itemType === type ? 'block' : 'none';
+                }
+            });
+        }
+
+        function filterByImportance(importance) {
+            const items = document.querySelectorAll('.result-item');
+            items.forEach(item => {
+                const itemImportance = item.getAttribute('data-importance');
+                item.style.display = itemImportance === importance ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

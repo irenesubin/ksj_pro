@@ -1,0 +1,17 @@
+{
+    "check_info": {
+        "item_code": "U-48",
+        "category": "1. 계정 관리",
+        "check_item": "1.9 패스워드 최소 사용기간 설정",
+        "severity": "중",
+        "check_date": "2024-12-04 14:03:53"
+    },
+    "check_result": {
+        "result": "취약(Vulnerable)",
+        "status": "/etc/login.defs 파일에 패스워드 최소 사용 기간이 설정되어 있지 않습니다.",
+        "details": {
+            "min_days_value": "",
+            "config_file": "/etc/login.defs"
+        }
+    }
+}
