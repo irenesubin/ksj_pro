@@ -1,0 +1,4 @@
+- hosts: rocky_servers
+  tasks:
+    - name: Test connectivity to all hosts
+      ping:

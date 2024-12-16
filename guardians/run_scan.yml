@@ -1,0 +1,41 @@
+- name: Run vulnerability scan
+  hosts: rocky_servers
+  tasks:
+    # 1. 진단 스크립트를 Rocky 서버의 임시 디렉터리로 복사
+    - name: Copy script to temporary directory
+      copy:
+        src: /home/guardians/rocky_script.sh
+        dest: /tmp/rocky_script.sh
+        mode: '0755'
+
+    # 2. 임시 디렉터리에서 진단 스크립트 실행
+    - name: Execute vulnerability scan script
+      shell: bash /tmp/rocky_script.sh
+      register: scan_result
+
+    # 3. 결과 파일 이름 찾기 (와일드카드 사용)
+    - name: Find results file
+      shell: ls /tmp/results_*.txt
+      register: result_files
+      failed_when: result_files.stdout == ""
+      changed_when: false
+
+    # 4. 결과 파일을 세마포어 서버로 가져오기
+    - name: Fetch results to Semaphore server
+      fetch:
+        src: "{{ item }}"
+        dest: /tmp/results/
+        flat: yes
+      loop: "{{ result_files.stdout_lines }}"
+
+    # 5. Rocky 서버에서 결과 파일과 스크립트 삭제
+    - name: Clean up temporary files on Rocky server
+      shell: rm -rf /tmp/rocky_script.sh /tmp/results_*.txt
+
+    # 6. Python 스크립트를 사용하여 JSON 추출 및 웹 서버 전송
+    - name: Convert results to JSON and upload to web server
+      delegate_to: localhost
+      command: python3 /home/guardians/parse_and_upload.py /tmp/results/{{ item | basename }} http://15.165.97.115:443/upload
+      loop: "{{ result_files.stdout_lines }}"
+      loop_control:
+        label: "{{ item | basename }}"

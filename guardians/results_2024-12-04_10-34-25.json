@@ -1,0 +1,658 @@
+{
+    "summary": {
+        "total_items": 72,
+        "vulnerable_items": 24,
+        "good_items": 44,
+        "na_items": 4
+    },
+    "details": [
+        {
+            "id": "U-01(상)",
+            "importance": "상",
+            "category": "1. 계정관리",
+            "check_item": "1.1 root 계정 원격접속 제한 ◀",
+            "criteria": "원격 터미널 서비스를 사용하지 않거나, 사용 시 root 직접 접속을 차단한 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "ssh 서비스를 사용하고, sshd_config 파일에서 root 계정의 원격 접속이 허용되어 있습니다."
+        },
+        {
+            "id": "U-02(상)",
+            "importance": "상",
+            "category": "1. 계정관리",
+            "check_item": "1.2 패스워드 복잡성 설정 ◀",
+            "criteria": "패스워드 최소길이 8자리 이상, 영문·숫자·특수문자 최소 입력 기능이 설정된 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "패스워드의 최소 길이를 설정한 파일이 없습니다."
+        },
+        {
+            "id": "U-03(상)",
+            "importance": "상",
+            "category": "1. 계정관리",
+            "check_item": "1.3 계정 잠금 임계값 설정 ◀",
+            "criteria": "계정 잠금 임계값이 10회 이하의 값으로 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "계정 잠금 임계값을 설정한 파일이 없습니다."
+        },
+        {
+            "id": "U-04(상)",
+            "importance": "상",
+            "category": "1. 계정관리",
+            "check_item": "1.4 패스워드 파일 보호 ◀",
+            "criteria": "쉐도우 패스워드를 사용하거나, 패스워드를 암호화하여 저장하는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-05(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.1 root홈, 패스 디렉터리 권한 및 패스 설정 ◀",
+            "criteria": "PATH 환경변수에 “.” 이 맨 앞이나 중간에 포함되지 않은 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-06(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.2 파일 및 디렉터리 소유자 설정 ◀",
+            "criteria": "소유자가 존재하지 않는 파일 및 디렉터리가 존재하지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-07(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.3 /etc/passwd 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/passwd 파일의 소유자가 root이고, 권한이 644 이하인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-08(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.4 /etc/shadow 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/shadow 파일의 소유자가 root이고, 권한이 400 이하인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-09(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.5 /etc/hosts 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/hosts 파일의 소유자가 root이고, 권한이 600인 이하인 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/hosts 파일의 권한이 600보다 큽니다."
+        },
+        {
+            "id": "U-10(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.6 /etc/(x)inetd.conf 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/inetd.conf 파일의 소유자가 root이고, 권한이 600인 경우",
+            "result": "N/A",
+            "current_status": "/etc/(x)inetd.conf 파일이 없습니다."
+        },
+        {
+            "id": "U-11(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.7 /etc/syslog.conf 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/syslog.conf 파일의 소유자가 root(또는 bin, sys)이고, 권한이 640 이하인 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/rsyslog.conf 파일의 권한이 640보다 큽니다."
+        },
+        {
+            "id": "U-12(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.8 /etc/services 파일 소유자 및 권한 설정 ◀",
+            "criteria": "/etc/services 파일의 소유자가 root(또는 bin, sys)이고, 권한이 644 이하인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-13(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.9 SUID, SGID, 설정 파일점검 ◀",
+            "criteria": "주요 실행파일의 권한에 SUID와 SGID에 대한 설정이 부여되어 있지 않은 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "주요 실행 파일의 권한에 SUID나 SGID에 대한 설정이 부여되어 있습니다."
+        },
+        {
+            "id": "U-14(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.10 사용자, 시스템 시작파일 및 환경파일 소유자 및 권한 설정 ◀",
+            "criteria": "홈 디렉터리 환경변수 파일 소유자가 root 또는, 해당 계정으로 지정되어 있고, 홈 디렉터리 환경변수 파일에 root와 소유자만 쓰기 권한이 부여된 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-15(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.11 world writable 파일 점검 ◀",
+            "criteria": "시스템 중요 파일에 world writable 파일이 존재하지 않거나, 존재 시 설정 이유를 확인하고 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "world writable 설정이 되어있는 파일이 있습니다."
+        },
+        {
+            "id": "U-16(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.12 /dev에 존재하지 않는 device 파일 점검 ◀",
+            "criteria": "/dev에 대한 파일 점검 후 존재하지 않은 device 파일을 제거한 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/dev 디렉터리에 존재하지 않는 device 파일이 존재합니다."
+        },
+        {
+            "id": "U-17(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.13 /root/.rhosts, hosts.equiv 사용 금지 ◀",
+            "criteria": "login, shell, exec 서비스를 사용하지 않거나, 사용 시 아래와 같은 설정이 적용된 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-18(상)",
+            "importance": "상",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.14 접속 IP 및 포트 제한 ◀",
+            "criteria": "접속을 허용할 특정 호스트에 대한 IP 주소 및 포트 제한을 설정한 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/hosts.deny 파일이 없습니다."
+        },
+        {
+            "id": "U-19(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.1 Finger 서비스 비활성화 ◀",
+            "criteria": "Finger 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-20(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.2 Anonymous FTP 비활성화 ◀",
+            "criteria": "Anonymous FTP (익명 ftp) 접속을 차단한 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "익명 ftp 접속을 설정하는 파일이 없습니다."
+        },
+        {
+            "id": "U-21(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.3 r 계열 서비스 비활성화 ◀",
+            "criteria": "불필요한 r 계열 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-22(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.4 crond 파일 소유자 및 권한 설정 ◀",
+            "criteria": "crontab 명령어 일반사용자 금지 및 cron 관련 파일 640 이하인 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/usr/bin/crontab 명령어의 권한이 750보다 큽니다."
+        },
+        {
+            "id": "U-23(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.5 DoS 공격에 취약한 서비스 비활성화 ◀",
+            "criteria": "사용하지 않는 DoS 공격에 취약한 서비스가 비활성화된 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-24(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.6 NFS 서비스 비활성화 ◀",
+            "criteria": "불필요한 NFS 서비스 관련 데몬이 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-25(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.7 NFS 접근 통제 ◀",
+            "criteria": "불필요한 NFS 서비스를 사용하지 않거나, 불가피하게 사용 시 everyone 공유를 제한한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-26(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.8 automountd 제거 ◀",
+            "criteria": "automountd 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-27(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.9 RPC 서비스 확인 ◀",
+            "criteria": "불필요한 RPC 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-28(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.10 NIS, NIS+ 점검 ◀",
+            "criteria": "NIS 서비스가 비활성화 되어 있거나, 필요 시 NIS+를 사용하는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-29(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.11 tftp, talk 서비스 비활성화 ◀",
+            "criteria": "tftp, talk, ntalk 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-30(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.12 Sendmail 버전 점검 ◀",
+            "criteria": "Sendmail 버전이 최신버전인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-31(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.13 스팸 메일 릴레이 제한 ◀",
+            "criteria": "SMTP 서비스를 사용하지 않거나 릴레이 제한이 설정되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-32(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.14 일반사용자의 Sendmail 실행 방지 ◀",
+            "criteria": "SMTP 서비스 미사용 또는, 일반 사용자의 Sendmail 실행 방지가 설정된 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-33(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.15 DNS 보안 버전 패치 ◀",
+            "criteria": "DNS 서비스를 사용하지 않거나 주기적으로 패치를 관리하고 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-34(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.16 DNS Zone Transfer 설정 ◀",
+            "criteria": "DNS 서비스 미사용 또는, Zone Transfer를 허가된 사용자에게만 허용한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-35(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.17 웹서비스 디렉토리 리스팅 제거 ◀",
+            "criteria": "디렉터리 검색 기능을 사용하지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-36(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.18 웹서비스 웹 프로세스 권한 제한 ◀",
+            "criteria": "Apache 데몬이 root 권한으로 구동되지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-37(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.19 웹서비스 상위 디렉토리 접근 금지 ◀",
+            "criteria": "상위 디렉터리에 이동제한을 설정한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-38(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.20 웹서비스 불필요한 파일 제거 ◀",
+            "criteria": "기본으로 생성되는 불필요한 파일 및 디렉터리가 제거되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-39(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.21 웹서비스 링크 사용금지 ◀",
+            "criteria": "심볼릭 링크, aliases 사용을 제한한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-40(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.22 웹서비스 파일 업로드 및 다운로드 제한 ◀",
+            "criteria": "파일 업로드 및 다운로드를 제한한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-41(상)",
+            "importance": "상",
+            "category": "3. 서비스 관리",
+            "check_item": "3.23 웹서비스 영역의 분리 ◀",
+            "criteria": "DocumentRoot를 별도의 디렉터리로 지정한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-42(상)",
+            "importance": "상",
+            "category": "4 패치 관리",
+            "check_item": "4.1 최신 보안패치 및 벤더 권고사항 적용 ◀",
+            "criteria": "패치 적용 정책을 수립하여 주기적으로 패치관리를 하고 있으며, 패치",
+            "result": "N/A",
+            "current_status": "수동으로 점검하세요."
+        },
+        {
+            "id": "U-43(상)",
+            "importance": "상",
+            "category": "5. 로그 관리",
+            "check_item": "5.1 로그의 정기적 검토 및 보고 ◀",
+            "criteria": "접속기록 등의 보안 로그, 응용 프로그램 및 시스템 로그 기록에 대해 정기적으로 검토, 분석, 리포트 작성 및 보고 등의 조치가 이루어지는 경우",
+            "result": "N/A",
+            "current_status": "수동으로 점검하세요."
+        },
+        {
+            "id": "U-44(중)",
+            "importance": "중",
+            "category": "1. 계정관리",
+            "check_item": "1.5 root 이외의 UID가 '0' 금지 ◀",
+            "criteria": "root 계정과 동일한 UID를 갖는 계정이 존재하지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-45(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.6 root 계정 su 제한 ◀",
+            "criteria": "su 명령어를 특정 그룹에 속한 사용자만 사용하도록 제한되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/bin/su 실행 파일의 다른 사용자(other)에 대한 권한 취약합니다."
+        },
+        {
+            "id": "U-46(중)",
+            "importance": "중",
+            "category": "1. 계정관리",
+            "check_item": "1.7 패스워드 최소 길이 설정 ◀",
+            "criteria": "패스워드 최소 길이가 8자 이상으로 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "패스워드 최소 길이를 설정한 파일이 없습니다."
+        },
+        {
+            "id": "U-47(중)",
+            "importance": "중",
+            "category": "1. 계정관리",
+            "check_item": "1.8 패스워드 최대 사용기간 설정 ◀",
+            "criteria": "패스워드 최대 사용기간이 90일(12주) 이하로 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/login.defs 파일에 패스워드 최대 사용 기간이 91일 이상으로 설정되어 있습니다."
+        },
+        {
+            "id": "U-48(중)",
+            "importance": "중",
+            "category": "1. 계정관리",
+            "check_item": "1.9 패스워드 최소 사용기간 설정 ◀",
+            "criteria": "패스워드 최소 사용기간이 1일 이상 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/login.defs 파일에 패스워드 최소 사용 기간이 1일 미만으로 설정되어 있습니다."
+        },
+        {
+            "id": "U-49(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.10 불필요한 계정 제거 ◀",
+            "criteria": "불필요한 계정이 존재하지 않는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "불필요한 계정이 존재합니다."
+        },
+        {
+            "id": "U-50(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.11 관리자 그룹에 최소한의 계정 포함 ◀",
+            "criteria": "관리자 그룹에 불필요한 계정이 등록되어 있지 않은 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-51(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.12 계정이 존재하지 않는 GID 금지 ◀",
+            "criteria": "시스템 관리나 운용에 불필요한 그룹이 삭제 되어있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "불필요한 그룹이 존재합니다."
+        },
+        {
+            "id": "U-52(중)",
+            "importance": "중",
+            "category": "1. 계정관리",
+            "check_item": "1.13 동일한 UID 금지 ◀",
+            "criteria": "동일한 UID로 설정된 사용자 계정이 존재하지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-53(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.14 사용자 shell 점검 ◀",
+            "criteria": "로그인이 필요하지 않은 계정에 /bin/false(/sbin/nologin) 쉘이 부여되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-54(하)",
+            "importance": "하",
+            "category": "1. 계정관리",
+            "check_item": "1.15 Session Timeout 설정 ◀",
+            "criteria": "Session Timeout이 600초(10분) 이하로 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "세션 타임아웃을 설정한 파일이 없습니다."
+        },
+        {
+            "id": "U-55(하)",
+            "importance": "하",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.15 hosts.lpd 파일 소유자 및 권한 설정 ◀",
+            "criteria": "hosts.lpd 파일이 삭제되어 있거나 불가피하게 hosts.lpd 파일을 사용할 시 파일의 소유자가 root이고 권한이 600인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-56(중)",
+            "importance": "중",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.17 UMASK 설정 관리 ◀",
+            "criteria": "UMASK 값이 022 이상으로 설정된 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-57(중)",
+            "importance": "중",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.18 홈디렉토리 소유자 및 권한 설정 ◀",
+            "criteria": "홈 디렉터리 소유자가 해당 계정이고, 타 사용자 쓰기 권한이 제거된 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/sbin 홈 디렉터리의 소유자가 sync이(가) 아닙니다."
+        },
+        {
+            "id": "U-58(중)",
+            "importance": "중",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.19 홈디렉토리로 지정한 디렉토리의 존재 관리 ◀",
+            "criteria": "홈 디렉터리가 존재하지 않는 계정이 발견되지 않는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "관리자 계정(root)이 아닌데 홈 디렉터리가 '/'로 설정된 계정이 있습니다."
+        },
+        {
+            "id": "U-59(하)",
+            "importance": "하",
+            "category": "2. 파일 및 디렉토리 관리",
+            "check_item": "2.20 숨겨진 파일 및 디렉토리 검색 및 제거 ◀",
+            "criteria": "불필요하거나 의심스러운 숨겨진 파일 및 디렉터리를 삭제한 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "숨겨진 파일이 있습니다."
+        },
+        {
+            "id": "U-60(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.24 ssh 원격접속 허용 ◀",
+            "criteria": "원격 접속 시 SSH 프로토콜을 사용하는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-61(하)",
+            "importance": "하",
+            "category": "3. 서비스 관리",
+            "check_item": "3.25 ftp 서비스 확인 ◀",
+            "criteria": "FTP 서비스가 비활성화 되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-62(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.26 ftp 계정 shell 제한 ◀",
+            "criteria": "ftp 계정에 /bin/false 쉘이 부여되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "ftp 계정에 /bin/false 쉘이 부여되어 있지 않습니다."
+        },
+        {
+            "id": "U-63(하)",
+            "importance": "하",
+            "category": "3. 서비스 관리",
+            "check_item": "3.27 ftpusers 파일 소유자 및 권한 설정 ◀",
+            "criteria": "ftpusers 파일의 소유자가 root이고, 권한이 640 이하인 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "ftp 접근제어 파일이 없습니다."
+        },
+        {
+            "id": "U-64(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.28 ftpusers 파일 설정(FTP 서비스 root 계정 접근제한) ◀",
+            "criteria": "FTP 서비스가 비활성화 되어 있거나, 활성화 시 root 계정 접속을 차단한 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-65(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.29 at 서비스 권한 설정 ◀",
+            "criteria": "at 명령어 일반사용자 금지 및 at 관련 파일 640 이하인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-66(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.30 SNMP 서비스 구동 점검 ◀",
+            "criteria": "SNMP 서비스를 사용하지 않는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-67(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.31 SNMP 서비스 Community String의 복잡성 설정 ◀",
+            "criteria": "SNMP Community 이름이 public, private 이 아닌 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-68(하)",
+            "importance": "하",
+            "category": "3. 서비스 관리",
+            "check_item": "3.32 로그온 시 경고 메시지 제공 ◀",
+            "criteria": "서버 및 Telnet, FTP, SMTP, DNS 서비스에 로그온 메시지가 설정되어 있는 경우",
+            "result": "취약(Vulnerable)",
+            "current_status": "/etc/motd 파일에 로그온 메시지를 설정하지 않았습니다."
+        },
+        {
+            "id": "U-69(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.33 NFS 설정파일 접근권한 ◀",
+            "criteria": "NFS 접근제어 설정파일의 소유자가 root 이고, 권한이 644 이하인 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-70(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.34 expn, vrfy 명령어 제한 ◀",
+            "criteria": "SMTP 서비스 미사용 또는, noexpn, novrfy 옵션이 설정되어 있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-71(중)",
+            "importance": "중",
+            "category": "3. 서비스 관리",
+            "check_item": "3.35 Apache 웹 서비스 정보 숨김 ◀",
+            "criteria": "ServerTokens Prod, ServerSignature Off로 설정되어있는 경우",
+            "result": "양호(Good)",
+            "current_status": "N/A"
+        },
+        {
+            "id": "U-72(하)",
+            "importance": "하",
+            "category": "5. 로그 관리",
+            "check_item": "5.2 정책에 따른 시스템 로깅 설정 ◀",
+            "criteria": "로그 기록 정책이 정책에 따라 설정되어 수립되어 있으며 보안정책에 따라 로그를 남기고 있을 경우",
+            "result": "N/A",
+            "current_status": "수동으로 점검하세요."
+        }
+    ]
+}
